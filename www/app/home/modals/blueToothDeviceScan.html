@@ -1,0 +1,15 @@
+<div class="modal">
+    <div class="bar bar-header bar-stable bar-positive">
+      <h1 class="title">Bluetooth Devices</h1>
+      <button class="button icon ion-close" ng-click="closeModal()"></button>
+    </div>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item ng-repeat="device in devices">
+          <h1>{{device.name}}</h1>
+          {{device.address}}
+          {{device.id}}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+</div>
