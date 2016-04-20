@@ -7,16 +7,32 @@ angular.module('serviceApp').controller('homeCtrl', function($scope, $ionicModal
     $scope.modal = modal;
   });
 
+  $scope.connectBluetoothDevice = function(device) {
+    console.log('connecting... ' + device.address);
+    bluetooth.connect(device.address).then(function(data){
+        bluetooth.write(data).then(function(result){
+            console.log(result);
+          },
+          function(data) {
+            console.log(result);
+          });;
+      },
+      function(data) {
+        console.log(data)
+      });
+  };
+
   $scope.openModal = function() {
     $scope.modal.show();
-    $ionicLoading.show({
-      template: 'Scanning...'
-    });
+    // $scope.loading = $ionicLoading.show({
+    //   template: 'Scanning...'
+    // });
+
     bluetooth.getDevices().then(function(devices) {
-      $scope.stopLoading();
       $scope.devices = devices;
+      // $ionicLoading.hide();
     }, function(msg){
-      $scope.stopLoading();
+      // $scope.loading.hide();
       alert(msg);
     });
   };
@@ -26,6 +42,7 @@ angular.module('serviceApp').controller('homeCtrl', function($scope, $ionicModal
   };
 
   $scope.stopLoading = function() {
+    console.log('stop loading');
     $ionicLoading.hide();
   };
 

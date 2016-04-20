@@ -5,10 +5,12 @@
     </div>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item ng-repeat="device in devices">
+        <!-- <ion-item ng-show = "!devices">
+          Scanning...
+        </ion-item> -->
+        <ion-item ng-click="connectBluetoothDevice({{device}})" ng-repeat="device in devices" type="button">
           <h1>{{device.name}}</h1>
           {{device.address}}
-          {{device.id}}
         </ion-item>
       </ion-list>
     </ion-content>

@@ -38,7 +38,7 @@ angular.module("serviceApp", ["ionic"])
           bluetoothSerial.list(function(devices) {
               deferred.resolve(devices);
             }, function() {
-              deferred.reject('Failed to find discover devices.');
+              deferred.reject('Failed to get devices.');
             });
           return deferred.promise;
         },
@@ -49,6 +49,26 @@ angular.module("serviceApp", ["ionic"])
             alert("Bluetooth is *not* Enabled.");
             }
           );
+        },
+        connect: function(address) {
+          var deferred = $q.defer();
+          bluetoothSerial.connectInsecure(address, function(result) {
+              deferred.resolve(result)
+            },
+            function(result) {
+              deferred.reject(result);
+            });
+          return deferred.promise;
+        },
+        write: function(data) {
+          var deferred = $q.defer();
+          bluetoothSerial.write(data, function(result) {
+              deferred.resolve(result);
+            },
+            function(result) {
+              deferred.reject(result);
+            });
+          return deferred.promise;
         }
     };
 });
